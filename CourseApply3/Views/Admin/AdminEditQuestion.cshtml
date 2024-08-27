@@ -1,0 +1,70 @@
+﻿@model CourseApply3.Models.CourseProperty.QuestionProperty;
+
+@{
+    Layout = "_AdminLayout";
+}
+@* admineditquestion *@
+<div class="container mt-5">
+    <h2>Soru Düzenle</h2>
+
+    <form asp-action="AdminEditQuestion" asp-controller="Admin" method="post">
+        <div class="form-group">
+            <label for="Question">Soru</label>
+            <input type="text" class="form-control" id="Question" name="Question" value="@Model.Question" required />
+        </div>
+
+        <div class="form-group">
+            <label for="AnswerA">Cevap A</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="AnswerA" name="AnswerA" value="@Model.AnswerA" required />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <input type="radio" name="CorrectAnswer" value="@Model.AnswerA" @(Model.CorrectAnswer == Model.AnswerA ? "checked" : "") required />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="AnswerB">Cevap B</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="AnswerB" name="AnswerB" value="@Model.AnswerB" required />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <input type="radio" name="CorrectAnswer" value="@Model.AnswerB" @(Model.CorrectAnswer == Model.AnswerB ? "checked" : "") required />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="AnswerC">Cevap C</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="AnswerC" name="AnswerC" value="@Model.AnswerC" required />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <input type="radio" name="CorrectAnswer" value="@Model.AnswerC" @(Model.CorrectAnswer == Model.AnswerC ? "checked" : "") required />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="AnswerD">Cevap D</label>
+            <div class="input-group">
+                <input type="text" class="form-control" id="AnswerD" name="AnswerD" value="@Model.AnswerD" required />
+                <div class="input-group-append">
+                    <div class="input-group-text">
+                        <input type="radio" name="CorrectAnswer" value="@Model.AnswerD" @(Model.CorrectAnswer == Model.AnswerD ? "checked" : "") required />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="QuestionId" value="@Model.QuestionId" />
+        <input type="hidden" name="ExamId" value="@Model.ExamId" />
+
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+        <a href="@Url.Action("AdminEditExam", "Admin", new { id = Model.ExamId })" class="btn btn-secondary">İptal</a>
+    </form>
+</div>

@@ -1,0 +1,29 @@
+﻿@model IEnumerable<CourseProperty.ExamProperty>
+@{
+    Layout = "_AdminLayout";
+}
+@* adminexams *@
+
+<div class="container mt-5">
+    <h2>Sınav Listesi</h2>
+    <a asp-action="AdminAddExam" class="btn btn-primary mb-3">Yeni Sınav Oluştur</a>
+
+    <div class="row">
+        @foreach (var exam in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">@exam.ExamName</h5>
+                        <p class="card-text">Soru Sayısı: @exam.Questions.Count</p>
+                        <a href="@Url.Action("AdminEditExam", "Admin", new { id = exam.ExamId })" class="btn btn-warning">Düzenle</a>
+                        <form asp-action="AdminDeleteExam" asp-controller="Admin" asp-route-id="@exam.ExamId" method="post" class="d-inline">
+                            <input type="hidden" name="examId" value=@exam.ExamId />
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

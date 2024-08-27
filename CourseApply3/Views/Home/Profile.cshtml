@@ -1,0 +1,54 @@
+﻿@{
+    var user = ViewData["User"] as CourseProperty.UserProperty;
+    var userScores = ViewData["UserScores"] as List<CourseProperty.UserInformation>;
+}
+@* userprofile *@
+<div class="container">
+    <h2>Profil Bilgileri</h2>
+    <div class="row">
+        <div class="col-md-4">
+            @if (user?.ProfilePictureData != null)
+            {
+                <img src="data:@user.ProfilePictureMimeType;base64,@Convert.ToBase64String(user.ProfilePictureData)" class="img-fluid rounded-circle" alt="Profil Resmi" />
+            }
+            else
+            {
+                <img src="~/images/default-profile.png" class="img-fluid rounded-circle" alt="Varsayılan Profil Resmi" />
+            }
+        </div>
+        <div class="col-md-8">
+            <h3>@user?.FirstName @user?.LastName</h3>
+            <p>E-posta: @user?.Email</p>
+            <p>Yaş: @user?.Age</p>
+            <p>Son Giriş: @user?.AccessDate.ToString("dd MMMM yyyy")</p>
+        </div>
+    </div>
+
+    <h3>Sınav Puanlarınız</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sınav Adı</th>
+                <th>Puan</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (userScores != null && userScores.Any())
+            {
+                @foreach (var score in userScores)
+                {
+                    <tr>
+                        <td>@score.Exam.ExamName</td>
+                        <td>@score.Score</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="2">Henüz herhangi bir sınav puanınız bulunmuyor.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

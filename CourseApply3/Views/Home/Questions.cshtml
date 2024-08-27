@@ -1,0 +1,83 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model Tuple<CourseProperty.ExamProperty, IPagedList<CourseProperty.QuestionProperty>>
+
+@{
+    int page1 = Model.Item2.PageNumber + 1;
+}
+@* userquestion *@
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Item1.ExamName</h5>
+                        <form asp-action="Questions" method="get">
+                            <input type="hidden" name="examId" value="@Model.Item1.ExamId" />
+                            <input type="hidden" name="page" value="@page1" />
+
+                            <ul>
+                                @foreach (var question in Model.Item2)
+                                {
+                                    <li>
+                                        <strong>@question.Question</strong>
+                                        <input type="hidden" name="questionsId" value="@question.QuestionId" />
+                                        <ul>
+                                            <li>
+                                                <input type="hidden" name="questionsId" value="@question.QuestionId" />
+
+                                                <input type="radio" name="answer" value="@question.AnswerA" />
+                                                <label>A: @question.AnswerA</label>
+                                            </li>
+                                            <li>
+                                                <input type="hidden" name="questionsId" value="@question.QuestionId" />
+
+                                                <input type="radio" name="answer" value="@question.AnswerB" />
+                                                <label>B: @question.AnswerB</label>
+                                            </li>
+                                            <li>
+                                                <input type="hidden" name="questionsId" value="@question.QuestionId" />
+
+                                                <input type="radio" name="answer" value="@question.AnswerC" />
+                                                <label>C: @question.AnswerC</label>
+                                            </li>
+                                            <li>
+                                                <input type="hidden" name="questionsId" value="@question.QuestionId" />
+
+                                                <input type="radio" name="answer" value="@question.AnswerD" />
+                                                <label>D: @question.AnswerD</label>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                }
+                            </ul>
+
+                            <button id="deselectButton" class="btn btn-secondary" type="button">Seçimi Kaldır</button>
+
+                            @if (Model.Item2.HasNextPage)
+                            {
+                                <button type="submit" class="btn btn-primary" >Sonraki Soru</button>
+                            }
+                            else
+                            {
+                                <button type="submit"  class="btn btn-primary" >Sınavı Bitir</button>
+                            }
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    $('#deselectButton').click(function (event) {
+        event.preventDefault();
+        $('input[type="radio"]').prop('checked', false);
+    });
+</script>

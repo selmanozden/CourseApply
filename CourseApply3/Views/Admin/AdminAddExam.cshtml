@@ -1,0 +1,16 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+@model CourseProperty.ExamProperty;
+
+@* adminaddexam *@
+<div class="container mt-5">
+    <h2>Yeni Sınav Oluştur</h2>
+    <form asp-action="AdminAddExam" method="post">
+        <div class="form-group">
+            <label for="ExamName">Sınav Adı</label>
+            <input type="text" class="form-control" name="ExamName" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Oluştur</button>
+    </form>
+</div>

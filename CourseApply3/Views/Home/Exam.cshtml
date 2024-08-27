@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CourseApply3.Models.CourseProperty.ExamProperty>
+
+@{
+    ViewData["Title"] = "Kurslar";
+}
+@* userexam *@
+<div class="container mt-5">
+    <div class="row">
+        @foreach (var course in Model)
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">@course.ExamName</h5>
+                        <p class="card-text">
+                            <strong>Soru Sayısı:</strong> @(course.Questions?.Count() ?? 0)
+                        </p>
+                        <a asp-action="Questions" asp-controller="Home" asp-route-examId="@course.ExamId" class="btn btn-primary">Detayları Gör</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .card {
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        border-radius: 0.25rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        color: #6c757d;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+    }
+</style>

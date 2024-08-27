@@ -1,0 +1,68 @@
+﻿@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Ana Sayfa";
+}
+@* userhome *@
+<section class="hero">
+    <div class="container h-100 d-flex align-items-center justify-content-center">
+        <div class="text-center text-box">
+            <h1 class="display-4">Hoş Geldiniz</h1>
+            <p class="lead">Sınavlara kayıt olun, ilerlemenizi takip edin ve başarıya ulaşın!</p>
+            <a asp-controller="Home" asp-action="Exam" class="btn btn-primary">Sınavlara Göz At</a>
+        </div>
+    </div>
+</section>
+
+<style>
+    body{
+        padding : 0;
+    }
+    .hero {
+        background: url("/Images/STUDENTS.jpg") no-repeat center center;
+        background-size: cover;
+        color: #fff;
+        height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        margin:0;
+    }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("/Images/STUDENTS.jpg") no-repeat center center;
+            background-size: cover;
+            z-index: -1;
+            opacity: 0.8;
+        }
+
+    .text-center {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+    }
+
+    .text-box {
+        background-color: rgba(0, 0, 0, 0.6); /* Yarı saydam arka plan */
+        padding: 20px;
+        border: 2px solid #fff; /* Beyaz kenarlık */
+        border-radius: 10px; /* Kenarları yuvarlama */
+    }
+    .navbar
+    {
+        margin-bottom:0;
+    }
+    .container {
+        max-width:none;
+        padding:0;
+        margin : 0;
+        width :100%;
+    }
+</style>

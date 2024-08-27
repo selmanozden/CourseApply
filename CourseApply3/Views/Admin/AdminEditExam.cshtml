@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "_AdminLayout";
+}
+@model CourseProperty.ExamProperty
+@* admineditexam *@
+<div class="container mt-5">
+    <h2>Sınav Düzenleme - @Model.ExamName</h2>
+    <form asp-action="AdminEditExam" method="post">
+        <div class="form-group">
+            <label for="ExamName">Sınav Adı</label>
+            <input type="text" class="form-control" name="ExamName" value="@Model.ExamName" required />
+            <input type="hidden" name="examId" value=@Model.ExamId />
+        </div>
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+    </form>
+
+    <hr />
+
+    <h3>Sorular</h3>
+    <a href="@Url.Action("AdminAddQuestion", "Admin", new { examId = Model.ExamId })" class="btn btn-success mb-3">Yeni Soru Ekle</a>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Soru</th>
+                <th>A Şıkkı</th>
+                <th>B Şıkkı</th>
+                <th>C Şıkkı</th>
+                <th>D Şıkkı</th>
+                <th>Doğru Cevap</th>
+                <th>İşlemler</th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var question in Model.Questions)
+            {
+                <tr>
+                    <td>@question.Question</td>
+                    
+                    <td>@question.AnswerA</td>
+                    <td>@question.AnswerB</td>
+                    <td>@question.AnswerC</td>
+                    <td>@question.AnswerD</td>
+                    <th>@question.CorrectAnswer</th>
+                    <td>
+
+                        <form asp-controller="Admin" asp-action="AdminEditQuestion" asp-route-id="@question.QuestionId" method="get" class="d-inline">
+                            <input type="hidden" name="questionId" value="@question.QuestionId" />
+                            <button type="submit" class="btn btn-primary">Düzenle</button>
+                        </form>
+                        <form asp-controller="Admin" asp-action="AdminDeleteQuestion" asp-route-id="@question.QuestionId" method="post" class="d-inline">
+                            <input type="hidden" name="questionId" value="@question.QuestionId" />
+                            <button type="submit" class="btn btn-danger">Sil</button>
+                        </form>
+                    </td>
+
+                   
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

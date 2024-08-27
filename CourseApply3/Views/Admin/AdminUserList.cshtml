@@ -1,0 +1,53 @@
+﻿@model IEnumerable<CourseApply3.Models.CourseProperty.UserProperty>
+@{
+    Layout = "_AdminLayout";
+
+}
+@* adminuserlist *@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Kullanıcı Listesi</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        .card-img-top
+        {
+            height:200px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Kullanıcı Listesi</h1>
+        <div class="row">
+            @foreach (var user in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        @if (user.ProfilePictureData != null)
+                        {
+                            <img class="card-img-top" src="data:@user.ProfilePictureMimeType;base64,@Convert.ToBase64String(user.ProfilePictureData)" alt="Profil Resmi">
+                        }
+                        <div class="card-body">
+                            <h5 class="card-title">@user.FirstName @user.LastName</h5>
+                            <p class="card-text"><strong>Yaş:</strong> @user.Age</p>
+                            <p class="card-text"><strong>Email:</strong> @user.Email</p>
+                            <p class="card-text"><strong>Kayıt Olunan Tarih:</strong> @user.AccessDate</p>
+                            <a asp-controller="Admin" asp-action="Edit" asp-route-id="@user.UsersId" class="btn btn-warning">Düzenle</a>
+                            <form asp-controller="Admin" asp-action="DeleteRecord" asp-route-id="@user.UsersId" method="post" style="display:inline;">
+                                <button type="submit" class="btn btn-danger">Sil</button>
+                            </form>
+                            <a asp-action="DownloadUserPdf"  asp-route-id="@user.UsersId" class="btn btn-primary">Download PDF</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <a asp-controller="Course" asp-action="ApplyView" class="btn btn-primary">Yeni Kayıt Ekle</a>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
